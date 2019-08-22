@@ -1,6 +1,7 @@
 const defaultFieldList = require('../defaultFieldList');
 
 module.exports = (name) => `CREATE TABLE ${name} (
-link MEDIUMTEXT NOT NULL,
+book_id INT NOT NULL,
+author_id INT NOT NULL,
 ${defaultFieldList}
 )`;

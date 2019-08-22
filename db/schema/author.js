@@ -1,6 +1,6 @@
 const defaultFieldList = require('../defaultFieldList');
 
-module.exports = `CREATE TABLE user (
+module.exports = (name) => `CREATE TABLE ${name} (
 name VARCHAR(255) NOT NULL,
 ${defaultFieldList}
-)`;;
+)`;

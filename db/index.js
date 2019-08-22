@@ -1,10 +1,19 @@
+const fs = require('fs');
 const _ = require('lodash');
+
+// get schema list for tables
+const schemaList = fs.readdirSync(__dirname + '/schema').reduce((acc, file) => {
+	if (file !== 'index.js') {
+		const table = file.split('.')[0];
+		acc[table] = require(`./schema/${file}`)(table);
+		return acc;
+	}
+}, {});
 
 const reCreateFlag = process.env.RECREATE_TABLES === 'true';
 
 try {
 	const db = require('./connect');
-	const schemaList = require('./schema');
 	const utils = require('./utils')(db);
 
 	async function initDatabase() {
