@@ -5,3 +5,4 @@ book_id INT NOT NULL,
 author_id INT NOT NULL,
 ${defaultFieldList}
 )`;
+

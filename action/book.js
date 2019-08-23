@@ -28,4 +28,8 @@ module.exports = {
 			}
 		}
 	},
+
+	getBook: (data) => {
+		return db.utils.queryExec(query.getBookList(data));
+	},
 };

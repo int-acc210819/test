@@ -1,4 +1,5 @@
 const database = process.env.DB_NAME;
+const { sortBookListStringToSQL } = require('component/helper');
 
 module.exports = {
 	tableList: `SHOW TABLES FROM ${database};`,
@@ -28,4 +29,35 @@ module.exports = {
 
 	checkExistImageByLink: (link) => `SELECT * FROM image WHERE link = ${link}`,
 	checkExistImageById: (id) => `SELECT * FROM image WHERE id = ${id}`,
+
+	getBookList: ({sort = 'id:asc', filter, page = 1, size = 15}) => {
+		const from = (page - 1) * size;
+		const sortArr = sortBookListStringToSQL(sort).map(e => e.split(':'));
+
+		const orderBy = sortArr.reduce((acc, field, idx) => {
+			if (idx === 0) {
+				acc = `${field[0]} ${field[1].toUpperCase()}`;
+				return acc;
+			}
+
+			acc = acc + `, ${field[0]} ${field[1].toUpperCase()}`;
+			return acc;
+		}, '');
+
+		const where = filter ? `WHERE B.id LIKE "%${filter}%"
+OR B.title LIKE "%${filter}%"
+OR A.name LIKE "%${filter}%"
+OR I.link LIKE "%${filter}%"` : '';
+
+		return `SELECT
+B.id, B.title, A.name AS author, I.link AS image
+FROM book as B
+LEFT JOIN author_book as AB ON AB.book_id = B.id
+LEFT JOIN author as A ON A.id = AB.author_id
+LEFT JOIN book_image AS BI ON BI.book_id = B.id
+LEFT JOIN image AS I ON I.id = BI.image_id
+${where}
+ORDER BY ${orderBy}
+LIMIT ${from}, ${size};`;
+	},
 };

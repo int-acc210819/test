@@ -9,7 +9,8 @@
   "_moduleAliases": {
     "component": "component",
     "action": "action",
-    "db": "db"
+    "db": "db",
+    "config": "config"
   },
   "author": "srdn2417",
   "license": "ISC",

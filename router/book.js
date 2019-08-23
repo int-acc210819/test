@@ -5,8 +5,14 @@ const action = require('../action/book');
 
 const router = new Router({ prefix: '/book' });
 
-router.post('/create', async (ctx, next) => {
-	const validData = await validator(ctx.request.body);
+router.get('/', async (ctx) => {
+	const validData = await validator.get(ctx.request.query);
+	const result = await action.getBook(validData);
+	ctx.body = result;
+});
+
+router.post('/create', async (ctx) => {
+	const validData = await validator.create(ctx.request.body);
 	await action.addBook(validData);
 	ctx.body = 'Book created';
 });
