@@ -1,8 +1,14 @@
 ### Test task
 ___
+Requirements:
+ - mysql 5.7.27+
+ - node 10.16.3+
+ 
+ Before start project create database than set info for connection to .env 
+ 
 Instructions:
+ - Start project npm run start
  - For update table, set RECREATE_TABLES in .env as true
-
 ___
 
 Task:
