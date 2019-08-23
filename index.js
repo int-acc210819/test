@@ -8,6 +8,9 @@ const initDb = require('./db');
 	await initDb();
 
 	const bookRouter = require('./router/book');
+	const authorRouter = require('./router/author');
+	const imageRouter = require('./router/image');
+
 
 	const errorHandler = require('./middleware/error');
 
@@ -20,7 +23,11 @@ const initDb = require('./db');
 
 	app
 		.use(bookRouter.routes())
-		.use(bookRouter.allowedMethods());
+		.use(authorRouter.routes())
+		.use(imageRouter.routes())
+		.use(bookRouter.allowedMethods())
+		.use(authorRouter.allowedMethods())
+		.use(imageRouter.allowedMethods());
 
 	app.listen(process.env.PORT, () => {
 		console.log(`App start on ${process.env.PORT} port`)

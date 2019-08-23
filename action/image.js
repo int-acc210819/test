@@ -4,20 +4,10 @@ const query = require('../db/query');
 const { db } = new Config();
 
 module.exports = {
-	addBook: async (data) => {
+	addImage: async (data) => {
 		try {
-			const { author, image } = data;
-
-			const { insertId } = await db.utils.queryExec(query.insertBook(data));
-			await db.utils.queryExec(query.connectBookAuthor({
-				author,
-				book: insertId,
-			}))
-			await db.utils.queryExec(query.connectBookImage({
-				image,
-				book: insertId,
-			}))
-
+			const res = await db.utils.queryExec(query.insertImage(data));
+			return res;
 		} catch (err) {
 			if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') !== -1) {
 				throw new CustomError({
@@ -28,4 +18,6 @@ module.exports = {
 			}
 		}
 	},
+	checkExistByLink: (name) => db.utils.queryExec(query.checkExistImageByLink(name)),
+	checkExistById: (id) => db.utils.queryExec(query.checkExistImageById(id)),
 };

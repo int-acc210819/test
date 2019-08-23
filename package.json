@@ -7,12 +7,15 @@
     "start": "node ./index.js"
   },
   "_moduleAliases": {
-    "component": "component"
+    "component": "component",
+    "action": "action",
+    "db": "db"
   },
   "author": "srdn2417",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.1.0",
+    "fastest-validator": "^0.6.17",
     "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",

@@ -21,6 +21,6 @@ module.exports = {
 	},
 
 	response: ((err, ctx) => {
-		console.log(err.message || err);
+		console.log(err);
 	})
 }
