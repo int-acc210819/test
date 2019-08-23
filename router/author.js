@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 
-const validator = require('../validator/author');
-const action = require('../action/author');
+const validator = require('validator/author');
+const action = require('action/author');
 
 const router = new Router({ prefix: '/author' });
 

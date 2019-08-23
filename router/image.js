@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 
-const validator = require('../validator/image');
-const action = require('../action/image');
+const validator = require('validator/image');
+const action = require('action/image');
 
 const router = new Router({ prefix: '/image' });
 

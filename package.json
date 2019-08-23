@@ -10,7 +10,8 @@
     "component": "component",
     "action": "action",
     "db": "db",
-    "config": "config"
+    "config": "config",
+    "validator": "validator"
   },
   "author": "srdn2417",
   "license": "ISC",

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const Config = require('../config');
+const Config = require('config');
 const config = new Config();
 
 // get schema list for tables
