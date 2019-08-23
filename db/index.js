@@ -1,6 +1,9 @@
 const fs = require('fs');
 const _ = require('lodash');
 
+const Config = require('../config');
+const config = new Config();
+
 // get schema list for tables
 const schemaList = fs.readdirSync(__dirname + '/schema').reduce((acc, file) => {
 	if (file !== 'index.js') {
@@ -16,7 +19,7 @@ try {
 	const db = require('./connect');
 	const utils = require('./utils')(db);
 
-	async function initDatabase() {
+	module.exports = async function initDatabase() {
 		let tableList = await utils.tableList();
 		for (const [name, sql] of _.entries(schemaList)) {
 			if (!tableList.includes(name)) {
@@ -34,9 +37,13 @@ try {
 				}
 			}
 		};
+
+		config.db = {
+			connect: db,
+			utils,
+		};
 	}
 
-	initDatabase();
 } catch (err) {
 	console.log('=== error in database ===\n', err);
 }

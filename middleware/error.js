@@ -9,8 +9,13 @@ module.exports = {
 			await next();
 
 		} catch (err) {
-			ctx.status = err.status || 500;
-			ctx.body = err.message || 'Unknown error';
+			const { status = 500, message, code } = err;
+
+			ctx.status = status;
+			ctx.body = {
+				message,
+				code,
+			};
 			ctx.app.emit('error', err, ctx);
 		}
 	},
