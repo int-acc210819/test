@@ -1,6 +1,4 @@
-const Config = require('config');
-
-const config = new Config();
+const config = require('config');
 
 module.exports = {
 	sortBookListStringToSQL: (sortString) => {

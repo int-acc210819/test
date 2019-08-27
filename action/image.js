@@ -1,7 +1,6 @@
 const CustomError = require('component/customError.js');
-const Config = require('config');
+const { db } = require('config');
 const query = require('db/query');
-const { db } = new Config();
 
 module.exports = {
 	addImage: async (data) => {

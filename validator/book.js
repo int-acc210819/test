@@ -3,10 +3,9 @@ const Validator = require('fastest-validator');
 const authorAction = require('action/author');
 const imageAction = require('action/image');
 const CustomError = require('component/customError');
-const Config = require('config');
+const config = require('config');
 
 const validator = new Validator();
-const config = new Config();
 
 const schemaCreate = {
 	title: { type: "string", min: 3, max: 255 },

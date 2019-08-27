@@ -1,8 +1,7 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const Config = require('config');
-const config = new Config();
+const config = require('config');
 
 // get schema list for tables
 const schemaList = fs.readdirSync(__dirname + '/schema').reduce((acc, file) => {
