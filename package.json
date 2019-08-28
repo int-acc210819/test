@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./index.js",
+    "db-init": "npm run db-recreate && node ./initDatabase.js",
+    "db-recreate": "chmod +x recreate-database.sh && ./recreate-database.sh"
   },
   "_moduleAliases": {
     "component": "component",

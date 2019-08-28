@@ -8,13 +8,19 @@ const router = new Router({ prefix: '/book' });
 router.get('/', async (ctx) => {
 	const validData = await validator.get(ctx.request.query);
 	const result = await action.getBook(validData);
-	ctx.body = result;
+	ctx.body = { result };
 });
 
 router.post('/create', async (ctx) => {
 	const validData = await validator.create(ctx.request.body);
-	await action.addBook(validData);
-	ctx.body = 'Book created';
+	const result = await action.addBook(validData);
+	ctx.body = { message: 'Book created', result };
+});
+
+router.put('/update/:id', async (ctx) => {
+	const validData = await validator.update(ctx.request.body, ctx.params);
+	const result = await action.updateBook(validData);
+	ctx.body = { message: 'Book updated', result };
 });
 
 module.exports = router;
