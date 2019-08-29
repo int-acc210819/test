@@ -100,3 +100,15 @@ Application have next endpoints:
          	"title": "Updated book"
          }'
       ```
+
+---
+####History
+
+v1:
+- base (all except update book)
+
+v2:
+- version history in readme
+- docker
+- update book
+- simple documentation in readme about endpoints
