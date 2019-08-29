@@ -12,11 +12,11 @@ module.exports = {
 	updateBook: (data, id) => {
 		const updateData = _.entries(data).reduce((acc, [key, value], idx) => {
 			if (idx === 0) {
-				acc = `${key} = ${value}`;
+				acc = `${key} = "${value}"`;
 				return acc;
 			}
 
-			acc = acc + `, ${key} = ${value}`;
+			acc = acc + `, ${key} = "${value}"`;
 			return acc;
 		}, '');
 

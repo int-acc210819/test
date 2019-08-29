@@ -70,7 +70,7 @@ module.exports = {
 			const fieldList = _.omit(data, ['id', 'author', 'image', 'oldAuthor', 'oldImage']);
 			const update = !!_.keys(fieldList).length;
 
-			const sql = update? query.updateBook(data, id) : query.getBookById(id);
+			const sql = update? query.updateBook(fieldList, id) : query.getBookById(id);
 
 			const response = await db.utils.queryExec(sql);
 
