@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
-    "db-init": "npm run db-recreate && node ./initDatabase.js",
-    "db-recreate": "chmod +x ./create-database.sh && ./create-database.sh"
+    "db-init": "node ./initDatabase.js"
   },
   "_moduleAliases": {
     "component": "component",

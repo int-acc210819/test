@@ -5,6 +5,7 @@ WORKDIR /home/node/app
 COPY . .
 
 RUN npm install
+RUN apk add --update bash
 
 #####
 ### Run
