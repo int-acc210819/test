@@ -37,6 +37,12 @@ WHERE (book_id = ${oldBook} AND author_id = ${oldAuthor});`
 		return `INSERT INTO book_image (book_id, image_id) VALUES (${book}, ${image});`;
 	},
 
+	updateBookImage: ({book, image, oldImage, oldBook}) => {
+		return `UPDATE book_image
+SET book_id = ${book}, image_id = ${image}
+WHERE (book_id = ${oldBook} AND author_id = ${oldImage});`
+	},
+
 	insertAuthor: ({name}) => {
 		return `INSERT INTO author (name) VALUES ("${name}");`
 	},

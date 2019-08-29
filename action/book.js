@@ -1,7 +1,7 @@
 const _ = require('lodash');
-const CustomError = require('component/customError.js');
 const { db } = require('config');
 const query = require('db/query');
+const errorHandler = require('component/actionErrorHandler');
 
 const connectAuthorToBook = async (data, book) => {
 	if (_.has(data, 'author')) {
@@ -36,6 +36,18 @@ const connectImageToBook = async (data, book) => {
 	}
 };
 
+const updateImage = async (data, book) => {
+	if (_.has(data, 'image')) {
+		const { image, oldImage } = data;
+		await db.utils.queryExec(query.updateBookImage({
+			image,
+			book,
+			oldImage,
+			oldBook: book,
+		}))
+	}
+};
+
 module.exports = {
 	addBook: async (data) => {
 		try {
@@ -47,19 +59,7 @@ module.exports = {
 			return response;
 
 		} catch (err) {
-			let status = 500;
-			let message = err.sqlMessage;
-
-			if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') !== -1) {
-				status = 400;
-			}
-			if (err.errno === 1146) message = 'Table in database not exist';
-
-			throw new CustomError({
-				status,
-				message,
-				code: err.errno,
-			})
+			errorHandler(err);
 		}
 	},
 
@@ -75,24 +75,12 @@ module.exports = {
 			const response = await db.utils.queryExec(sql);
 
 			await updateAuthor(data, id);
-			await connectImageToBook(data, id);
+			await updateImage(data, id);
 
 			return response;
 
 		} catch (err) {
-			let status = 500;
-			let message = err.sqlMessage;
-
-			if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') !== -1) {
-				status = 400;
-			}
-			if (err.errno === 1146) message = 'Table in database not exist';
-
-			throw new CustomError({
-				status,
-				message,
-				code: err.errno,
-			})
+			errorHandler(err);
 		}
 	},
 
