@@ -3,9 +3,15 @@ require('module-alias/register');
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 
-const initDb = require('./db');
+const config = require('config');
+const db = require('db/connect');
+const utils = require('db/utils')(db);
+config.db = {
+	connect: db,
+	utils,
+};
+
 (async () => {
-	await initDb();
 
 	const bookRouter = require('./router/book');
 	const authorRouter = require('./router/author');

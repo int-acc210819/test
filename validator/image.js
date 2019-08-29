@@ -5,7 +5,7 @@ const CustomError = require('component/customError');
 const validator = new Validator();
 
 const schema = {
-	link: { type: "string", min: 3, max: 65000 },
+	link: { type: "string", min: 3, max: 512 },
 };
 
 module.exports = (data) => {

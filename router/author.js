@@ -7,8 +7,8 @@ const router = new Router({ prefix: '/author' });
 
 router.post('/create', async (ctx, next) => {
 	const validData = await validator(ctx.request.body);
-	await action.addAuthor(validData);
-	ctx.body = 'Author created';
+	const result = await action.addAuthor(validData);
+	ctx.body = { message: 'Author created', result };
 });
 
 module.exports = router;

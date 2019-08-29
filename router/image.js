@@ -7,8 +7,8 @@ const router = new Router({ prefix: '/image' });
 
 router.post('/create', async (ctx, next) => {
 	const validData = await validator(ctx.request.body);
-	await action.addImage(validData);
-	ctx.body = 'Image created';
+	const result = await action.addImage(validData);
+	ctx.body = { message: 'Image created', result };
 });
 
 module.exports = router;

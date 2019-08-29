@@ -1,31 +1,86 @@
-const CustomError = require('component/customError.js');
-const Config = require('config');
+const _ = require('lodash');
+const { db } = require('config');
 const query = require('db/query');
-const { db } = new Config();
+const errorHandler = require('component/actionErrorHandler');
+
+const connectAuthorToBook = async (data, book) => {
+	if (_.has(data, 'author')) {
+		const { author } = data;
+		await db.utils.queryExec(query.connectBookAuthor({
+			author,
+			book,
+		}))
+	}
+};
+
+const updateAuthor = async (data, book) => {
+	if (_.has(data, 'author')) {
+		const { author, oldAuthor } = data;
+		await db.utils.queryExec(query.updateBookAuthor({
+			author,
+			book,
+			oldAuthor,
+			oldBook: book,
+		}))
+	}
+};
+
+const connectImageToBook = async (data, book) => {
+	if (_.has(data, 'image')) {
+		const { image } = data;
+
+		await db.utils.queryExec(query.connectBookImage({
+			image,
+			book,
+		}))
+	}
+};
+
+const updateImage = async (data, book) => {
+	if (_.has(data, 'image')) {
+		const { image, oldImage } = data;
+		await db.utils.queryExec(query.updateBookImage({
+			image,
+			book,
+			oldImage,
+			oldBook: book,
+		}))
+	}
+};
 
 module.exports = {
 	addBook: async (data) => {
 		try {
-			const { author, image } = data;
+			const response = await db.utils.queryExec(query.insertBook(data));
 
-			const { insertId } = await db.utils.queryExec(query.insertBook(data));
-			await db.utils.queryExec(query.connectBookAuthor({
-				author,
-				book: insertId,
-			}))
-			await db.utils.queryExec(query.connectBookImage({
-				image,
-				book: insertId,
-			}))
+			await connectAuthorToBook(data, response.insertId);
+			await connectImageToBook(data, response.insertId);
+
+			return response;
 
 		} catch (err) {
-			if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') !== -1) {
-				throw new CustomError({
-					message: err.sqlMessage,
-					status: 400,
-					code: err.errno,
-				})
-			}
+			errorHandler(err);
+		}
+	},
+
+	updateBook: async (data) => {
+		try {
+			const { id } = data;
+
+			const fieldList = _.omit(data, ['id', 'author', 'image', 'oldAuthor', 'oldImage']);
+			const update = !!_.keys(fieldList).length;
+
+			const sql = update? query.updateBook(fieldList, id) : query.getBookById(id);
+
+			const response = await db.utils.queryExec(sql);
+
+			await updateAuthor(data, id);
+			await updateImage(data, id);
+
+			return response;
+
+		} catch (err) {
+			errorHandler(err);
 		}
 	},
 

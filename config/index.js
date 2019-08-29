@@ -1,4 +1,4 @@
-module.exports = class Config {
+class Config {
 	constructor(props) {
 		if(!!Config.instance) {
 			return Config.instance;
@@ -14,3 +14,5 @@ module.exports = class Config {
 	}
 
 };
+
+module.exports = new Config();

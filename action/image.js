@@ -1,7 +1,7 @@
 const CustomError = require('component/customError.js');
-const Config = require('config');
+const { db } = require('config');
 const query = require('db/query');
-const { db } = new Config();
+const errorHandler = require('component/actionErrorHandler');
 
 module.exports = {
 	addImage: async (data) => {
@@ -9,15 +9,9 @@ module.exports = {
 			const res = await db.utils.queryExec(query.insertImage(data));
 			return res;
 		} catch (err) {
-			if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') !== -1) {
-				throw new CustomError({
-					message: err.sqlMessage,
-					status: 400,
-					code: err.errno,
-				})
-			}
+			errorHandler(err);
 		}
 	},
-	checkExistByLink: (name) => db.utils.queryExec(query.checkExistImageByLink(name)),
-	checkExistById: (id) => db.utils.queryExec(query.checkExistImageById(id)),
+	getByLink: (name) => db.utils.queryExec(query.getImageByLink(name)),
+	getById: (id) => db.utils.queryExec(query.getImageById(id)),
 };
