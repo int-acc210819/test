@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    image: traefik
+    command: --api --docker.exposedbydefault=false
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  db:
+    image: mysql:5.7.27
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+
+  app:
+    ports:
+      - "3000:3000"
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: npm run start
+    volumes:
+      - ".:/home/node/app"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASS}
+    depends_on:
+      - db
