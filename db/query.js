@@ -40,7 +40,7 @@ WHERE (book_id = ${oldBook} AND author_id = ${oldAuthor});`
 	updateBookImage: ({book, image, oldImage, oldBook}) => {
 		return `UPDATE book_image
 SET book_id = ${book}, image_id = ${image}
-WHERE (book_id = ${oldBook} AND author_id = ${oldImage});`
+WHERE (book_id = ${oldBook} AND image_id = ${oldImage});`
 	},
 
 	insertAuthor: ({name}) => {
