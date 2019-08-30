@@ -1,7 +1,9 @@
 # Test task
 
 ---
+
 ###With Docker
+
  - install docker
  
     - ```curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -```
@@ -24,6 +26,7 @@
  - start bash script
     - ```sh ./start```
 ___
+
 ###Without Docker
 
 Requirements:
@@ -50,6 +53,7 @@ Task:
 ```
 
 ___
+
 ##Documentation
 
 Application have next endpoints:
@@ -102,6 +106,7 @@ Application have next endpoints:
       ```
 
 ---
+
 ##History
 
 v2:
