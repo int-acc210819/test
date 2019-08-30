@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
-    "db-init": "node ./initDatabase.js"
+    "db-init": "node ./initDatabase.js",
+    "test": "NODE_ENV=test node -r dotenv node_modules/.bin/mocha tests --recursive"
   },
   "_moduleAliases": {
     "component": "component",
@@ -25,5 +26,9 @@
     "lodash": "^4.17.15",
     "module-alias": "^2.2.1",
     "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
   }
 }
