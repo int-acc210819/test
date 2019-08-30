@@ -2,7 +2,7 @@
 
 ---
 
-###With Docker
+### With Docker
 
  - install docker
  
@@ -27,7 +27,7 @@
     - ```sh ./start```
 ___
 
-###Without Docker
+### Without Docker
 
 Requirements:
  - mysql 5.7.27+
@@ -54,7 +54,7 @@ Task:
 
 ___
 
-##Documentation
+## Documentation
 
 Application have next endpoints:
  - Create author
@@ -107,7 +107,7 @@ Application have next endpoints:
 
 ---
 
-##History
+## History
 
 v2:
 - version history in readme

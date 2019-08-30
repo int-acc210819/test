@@ -93,14 +93,20 @@ module.exports = {
 	},
 
 	get: (data) => {
-		if (!_.isObject(data)) throw new Error('Input data should be object');
+		if (!_.isObject(data)) throw new CustomError({
+			message: 'Input data should be object',
+			status: 400,
+			code: 1,
+		});
 
 		const check = validator.compile(schemaRead);
 		const valid = check(data);
 
 		if (valid !== true) {
+			const message = _.isArray(valid)? valid : validator.validate(data, schemaRead);
+
 			throw new CustomError({
-				message: validator.validate(data, schemaRead),
+				message,
 				status: 400,
 				code: 1,
 			})
