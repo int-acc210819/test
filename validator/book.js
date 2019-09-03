@@ -75,7 +75,7 @@ module.exports = {
 
 	create: async function (data) {
 		const result = await this.mainInsert(data, schemaCreate);
-		return _.pick(result, ['title', 'description', 'author', 'image', 'id']);
+		return _.pick(result, ['title', 'description', 'author', 'image']);
 	},
 
 	update: async function (data, id) {
