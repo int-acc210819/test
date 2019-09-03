@@ -84,6 +84,11 @@ module.exports = {
 			status: 400,
 		});
 
+		if (data.image && !data.oldImage) throw new CustomError({
+			message: 'While update image, should send both old image and new',
+			status: 400,
+		});
+
 		const result = await this.mainInsert({...data, ...id}, schemaUpdate);
 		return _.pick(result, [
 			'title', 'description', 'author',
