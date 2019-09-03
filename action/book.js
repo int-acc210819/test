@@ -56,7 +56,7 @@ module.exports = {
 			await connectAuthorToBook(data, response.insertId);
 			await connectImageToBook(data, response.insertId);
 
-			return response;
+			return { id: response.insertId };
 
 		} catch (err) {
 			errorHandler(err);
