@@ -109,6 +109,10 @@ Application have next endpoints:
 
 ## History
 
+v3:
+- unit tests
+- swagger documentation
+
 v2:
 - version history in readme
 - docker
