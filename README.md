@@ -1,7 +1,9 @@
-### Test task
+# Test task
 
 ---
-#####With Docker
+
+### With Docker
+
  - install docker
  
     - ```curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -```
@@ -24,7 +26,8 @@
  - start bash script
     - ```sh ./start```
 ___
-#####Without Docker
+
+### Without Docker
 
 Requirements:
  - mysql 5.7.27+
@@ -50,7 +53,8 @@ Task:
 ```
 
 ___
-####Documentation
+
+## Documentation
 
 Application have next endpoints:
  - Create author
@@ -102,13 +106,18 @@ Application have next endpoints:
       ```
 
 ---
-####History
 
-v1:
-- base (all except update book)
+## History
+
+v3:
+- unit tests
+- swagger documentation
 
 v2:
 - version history in readme
 - docker
 - update book
 - simple documentation in readme about endpoints
+
+v1:
+- base (all except update book)

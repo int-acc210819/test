@@ -1,8 +1,8 @@
 const CustomError = require('./customError');
 
 module.exports = (err) => {
-	let status = 500;
-	let message = err.sqlMessage;
+	let status = err.status || 500;
+	let message = err.sqlMessage || err.message;
 
 	if (err.sqlMessage && err.sqlMessage.indexOf('Duplicate entry') !== -1) {
 		status = 400;

@@ -1,0 +1,386 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Test task on koa and clear MySQL (without ORM)",
+    "version": "1.0.0",
+    "title": "Swagger test task",
+    "contact": {
+      "email": "srdn2417@gmail.com"
+    },
+    "license": {
+      "name": "ISC",
+      "url": "https://www.isc.org/licenses/isc"
+    }
+  },
+  "tags": [
+    {
+      "name": "book",
+      "description": "book have author and image"
+    },
+    {
+      "name": "author",
+      "description": "author have name"
+    },
+    {
+      "name": "image",
+      "description": "image have link"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/book/create": {
+      "post": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Add a new book",
+        "description": "",
+        "operationId": "addBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Book"
+          }
+        }],
+        "responses": {
+          "400": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "examples": {
+              "application/json": {
+                "message": "Book created",
+                "result": {
+                  "id": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book/update/{id}": {
+      "put": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Update an existing book",
+        "description": "",
+        "operationId": "updateBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookUpdate"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Validation exception"
+          },
+          "500": {
+            "examples": {
+              "application/json": {
+                "message": "Cant update book",
+                "code": 0
+              }
+            }
+          },
+          "200": {
+            "examples": {
+              "application/json": {
+                "message": "Book updated"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "Get book with filter and sort",
+        "description": "",
+        "operationId": "getBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "size",
+            "description": "size count on page",
+            "required": false,
+            "type": "integer",
+            "default": 15
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "description": "search by characters by bookId, bookTitle, imageLink, authorName",
+            "required": false,
+            "type": "string",
+            "default": "pushkin"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "sort result by characters by bookId, bookTitle, imageId, authorId",
+            "required": false,
+            "type": "string",
+            "default": "title:desc,id:asc"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Validation exception"
+          },
+          "200": {
+            "examples": {
+              "application/json": {
+                "result": [
+                  {
+                    "id": 2,
+                    "title": "Updated book",
+                    "author": "Esenin",
+                    "image": "http://google.com/15.jpg"
+                  },
+                  {
+                    "id": 1,
+                    "title": "Justin book",
+                    "author": "Pushkin",
+                    "image": "http://google.com/5.jpg"
+                  },
+                  {
+                    "id": 3,
+                    "title": "Gosudarstvo",
+                    "author": "Sokrat",
+                    "image": "http://google.com/1.jpg"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/author/create": {
+      "post": {
+        "tags": [
+          "author"
+        ],
+        "summary": "Add a new author",
+        "description": "",
+        "operationId": "addAuthor",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Author"
+          }
+        }],
+        "responses": {
+          "400": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "examples": {
+              "application/json": {
+                "message": "Author created",
+                "result": {
+                  "id": 1
+                }
+              }
+            }
+          }
+        }
+      }
+
+    },
+    "/image/create": {
+      "post": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Add a new image",
+        "description": "",
+        "operationId": "addImage",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Image"
+          }
+        }],
+        "responses": {
+          "400": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "examples": {
+              "application/json": {
+                "message": "Image created",
+                "result": {
+                  "id": 1
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "required": [
+        "title",
+        "description",
+        "author",
+        "image"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Book name",
+          "example": "Justin book"
+        },
+        "description": {
+          "type": "string",
+          "description": "About book",
+          "example": "This book about boy in the forest"
+        },
+        "author": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Author id",
+          "example": 1
+        },
+        "image": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Image id",
+          "example": 5
+        }
+      }
+    },
+    "BookUpdate": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Book name",
+          "example": "Updated Justin book"
+        },
+        "description": {
+          "type": "string",
+          "description": "About book",
+          "example": "This book about is updated"
+        },
+        "author": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Author id",
+          "example": 5
+        },
+        "oldAuthor": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Author id",
+          "example": 1
+        },
+        "image": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Image id",
+          "example": 5
+        },
+        "oldImage": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Image id",
+          "example": 1
+        }
+      }
+    },
+    "Author": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author name",
+          "example": "Lermontov"
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "required": [
+        "link"
+      ],
+      "properties": {
+        "link": {
+          "type": "string",
+          "description": "Image link",
+          "example": "http://google.com/image/1.png"
+        }
+      }
+    }
+  }
+}

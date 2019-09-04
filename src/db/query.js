@@ -51,7 +51,7 @@ WHERE (book_id = ${oldBook} AND image_id = ${oldImage});`
 		return `INSERT INTO image (link) VALUES ("${link}");`
 	},
 
-	getAuthorByName: (name) => `SELECT * FROM author WHERE name = ${name}`,
+	getAuthorByName: (name) => `SELECT * FROM author WHERE name = "${name}"`,
 	getAuthorById: (id) => `SELECT * FROM author WHERE id = ${id}`,
 
 	getImageByLink: (link) => `SELECT * FROM image WHERE link = ${link}`,

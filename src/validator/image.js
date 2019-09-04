@@ -9,7 +9,11 @@ const schema = {
 };
 
 module.exports = (data) => {
-	if (!_.isObject(data)) throw new Error('Input data should be object');
+	if (!_.isObject(data)) throw new CustomError({
+		message: 'Input data should be object',
+		status: 400,
+		code: 1,
+	});
 
 	const check = validator.compile(schema);
 	const valid = check(data);

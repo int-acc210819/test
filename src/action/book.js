@@ -2,6 +2,7 @@ const _ = require('lodash');
 const { db } = require('config');
 const query = require('db/query');
 const errorHandler = require('component/actionErrorHandler');
+const CustomError = require('component/customError');
 
 const connectAuthorToBook = async (data, book) => {
 	if (_.has(data, 'author')) {
@@ -56,7 +57,7 @@ module.exports = {
 			await connectAuthorToBook(data, response.insertId);
 			await connectImageToBook(data, response.insertId);
 
-			return response;
+			return { id: response.insertId };
 
 		} catch (err) {
 			errorHandler(err);
@@ -76,6 +77,13 @@ module.exports = {
 
 			await updateAuthor(data, id);
 			await updateImage(data, id);
+
+			if (response.affectedRows < 1 ) {
+				throw new CustomError({
+					status: 500,
+					message: 'Cant update book',
+				});
+			}
 
 			return response;
 

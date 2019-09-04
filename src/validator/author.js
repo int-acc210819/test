@@ -8,8 +8,14 @@ const schema = {
 	name: { type: "string", min: 3, max: 255 },
 };
 
+const allowedKeys = ['name'];
+
 module.exports = (data) => {
-	if (!_.isObject(data)) throw new Error('Input data should be object');
+	if (!_.isObject(data)) throw new CustomError({
+		message: 'Input data should be object',
+		status: 400,
+		code: 1,
+	});
 
 	const check = validator.compile(schema);
 	const valid = check(data);
@@ -22,5 +28,5 @@ module.exports = (data) => {
 		})
 	};
 
-	return _.pick(data, ['name'])
+	return _.pick(data, allowedKeys)
 };

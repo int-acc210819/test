@@ -6,8 +6,11 @@ class Config {
 
 		Config.instance = this;
 
+		this.regexAsString = {
+			sortBookInRequest: "^((id|title|author|image):(asc|desc)(,\s?)?)*$",
+		};
 		this.regex = {
-			sortBookInRequest: /((id|title|author|image):(asc|desc))/g
+			sortBookInRequest: new RegExp(this.regexAsString.sortBookInRequest, 'g'),
 		};
 
 		return this;

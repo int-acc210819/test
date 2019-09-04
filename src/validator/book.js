@@ -24,7 +24,7 @@ const schemaUpdate = {
 };
 
 const schemaRead = {
-	sort: { type: "string", min: 3, max: 255, pattern: config.regex.sortBookInRequest, optional: true },
+	sort: { type: "string", min: 3, max: 255, pattern: config.regexAsString.sortBookInRequest, patternFlags: 'g', optional: true },
 	filter: { type: "string", min: 1, max: 1000, optional: true },
 	size: { type: "number", positive: true, integer: true, optional: true, convert: true },
 	page: { type: "number", positive: true, integer: true, optional: true, convert: true },
@@ -75,12 +75,17 @@ module.exports = {
 
 	create: async function (data) {
 		const result = await this.mainInsert(data, schemaCreate);
-		return _.pick(result, ['title', 'description', 'author', 'image', 'id']);
+		return _.pick(result, ['title', 'description', 'author', 'image']);
 	},
 
 	update: async function (data, id) {
 		if (data.author && !data.oldAuthor) throw new CustomError({
 			message: 'While update author, should send both old author and new',
+			status: 400,
+		});
+
+		if (data.image && !data.oldImage) throw new CustomError({
+			message: 'While update image, should send both old image and new',
 			status: 400,
 		});
 
@@ -93,14 +98,20 @@ module.exports = {
 	},
 
 	get: (data) => {
-		if (!_.isObject(data)) throw new Error('Input data should be object');
+		if (!_.isObject(data)) throw new CustomError({
+			message: 'Input data should be object',
+			status: 400,
+			code: 1,
+		});
 
 		const check = validator.compile(schemaRead);
 		const valid = check(data);
 
 		if (valid !== true) {
+			const message = _.isArray(valid)? valid : validator.validate(data, schemaRead);
+
 			throw new CustomError({
-				message: validator.validate(data, schemaRead),
+				message,
 				status: 400,
 				code: 1,
 			})

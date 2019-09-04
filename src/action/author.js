@@ -5,8 +5,10 @@ const errorHandler = require('component/actionErrorHandler');
 module.exports = {
 	addAuthor: async (data) => {
 		try {
-			const res = await db.utils.queryExec(query.insertAuthor(data));
-			return res;
+			const response = await db.utils.queryExec(query.insertAuthor(data));
+
+			return { id: response.insertId };
+
 		} catch (err) {
 			errorHandler(err);
 		}
