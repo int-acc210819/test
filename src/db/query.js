@@ -54,7 +54,7 @@ WHERE (book_id = ${oldBook} AND image_id = ${oldImage});`
 	getAuthorByName: (name) => `SELECT * FROM author WHERE name = "${name}"`,
 	getAuthorById: (id) => `SELECT * FROM author WHERE id = ${id}`,
 
-	getImageByLink: (link) => `SELECT * FROM image WHERE link = ${link}`,
+	getImageByLink: (link) => `SELECT * FROM image WHERE link = "${link}"`,
 	getImageById: (id) => `SELECT * FROM image WHERE id = ${id}`,
 
 	getBookById: (id) => `SELECT * FROM book WHERE id = ${id}`,

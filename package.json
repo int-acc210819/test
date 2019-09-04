@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon ./index.js",
     "db-init": "node ./initDatabase.js",
-    "test": "NODE_ENV=test node_modules/.bin/mocha tests --recursive"
+    "test": "NODE_ENV=test node_modules/.bin/mocha tests --recursive",
+    "load-to-mysql": "node ./fromCsvToMysql.js"
   },
   "_moduleAliases": {
     "component": "src/component",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "fast-csv": "^3.4.0",
     "koa2-swagger-ui": "^2.15.3",
     "mocha": "^6.2.0",
     "sinon": "^7.4.2"

@@ -25,6 +25,8 @@
     
  - start bash script
     - ```sh ./start```
+    
+    P.S: before start script, uncomment lines 7, 10 if you need init database or load data from csv file
 ___
 
 ### Without Docker
@@ -36,8 +38,9 @@ Requirements:
  Before start project create database than set info for connection to .env 
  
 Instructions:
- - Create tables in database npm run db-init
- - Start project npm run start
+ - Create tables in database ```npm run db-init```
+ - Load start data ```npm run load-to-mysql```
+ - Start project ```npm run start```
 ___
 
 Task:
@@ -112,6 +115,7 @@ Application have next endpoints:
 v3:
 - unit tests
 - swagger documentation
+- script for load initial data (also dataset)
 
 v2:
 - version history in readme
