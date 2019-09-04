@@ -59,6 +59,8 @@ ___
 
 ## Documentation
 
+Swagger documentation: http://localhost:3000/swagger
+
 Application have next endpoints:
  - Create author
     - ```
