@@ -201,6 +201,86 @@
           }
         }
       }
+    },
+    "/author/create": {
+      "post": {
+        "tags": [
+          "author"
+        ],
+        "summary": "Add a new author",
+        "description": "",
+        "operationId": "addAuthor",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Author"
+          }
+        }],
+        "responses": {
+          "400": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "examples": {
+              "application/json": {
+                "message": "Author created",
+                "result": {
+                  "id": 1
+                }
+              }
+            }
+          }
+        }
+      }
+
+    },
+    "/image/create": {
+      "post": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Add a new image",
+        "description": "",
+        "operationId": "addImage",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Image"
+          }
+        }],
+        "responses": {
+          "400": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "examples": {
+              "application/json": {
+                "message": "Image created",
+                "result": {
+                  "id": 1
+                }
+              }
+            }
+          }
+        }
+      }
+
     }
   },
   "definitions": {
@@ -213,11 +293,6 @@
         "image"
       ],
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64",
-          "example": 15
-        },
         "title": {
           "type": "string",
           "description": "Book name",
@@ -278,6 +353,32 @@
           "format": "int64",
           "description": "Image id",
           "example": 1
+        }
+      }
+    },
+    "Author": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author name",
+          "example": "Lermontov"
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "required": [
+        "link"
+      ],
+      "properties": {
+        "link": {
+          "type": "string",
+          "description": "Image link",
+          "example": "http://google.com/image/1.png"
         }
       }
     }
