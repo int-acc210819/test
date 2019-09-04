@@ -3,8 +3,8 @@ require('module-alias/register');
 const fs = require('fs');
 const _ = require('lodash');
 
-const triggerList = require('db/trigger');
-const relationList = require('db/relation');
+const triggerList = require('src/db/trigger');
+const relationList = require('src/db/relation');
 
 // get schema list for tables
 const schemaList = fs.readdirSync(__dirname + '/db/schema').reduce((acc, file) => {
@@ -12,14 +12,14 @@ const schemaList = fs.readdirSync(__dirname + '/db/schema').reduce((acc, file) =
 		const table = file.split('.')[0];
 		const name = table.split('__')[1];
 
-		acc[table] = require(`db/schema/${file}`)(name);
+		acc[table] = require(`src/db`)(name);
 		return acc;
 	}
 }, {});
 
 try {
-	const db = require('db/connect');
-	const utils = require('db/utils')(db);
+	const db = require('src/db/connect');
+	const utils = require('src/db/utils')(db);
 
 	(async function () {
 		// init tables

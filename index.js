@@ -13,12 +13,12 @@ config.db = {
 
 (async () => {
 
-	const bookRouter = require('./router/book');
-	const authorRouter = require('./router/author');
-	const imageRouter = require('./router/image');
+	const bookRouter = require('router/book');
+	const authorRouter = require('router/author');
+	const imageRouter = require('router/image');
 
 
-	const errorHandler = require('./middleware/error');
+	const errorHandler = require('middleware/error');
 
 	const app = new Koa();
 	app.use(bodyParser());
