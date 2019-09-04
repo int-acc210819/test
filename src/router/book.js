@@ -19,8 +19,8 @@ router.post('/create', async (ctx) => {
 
 router.put('/update/:id', async (ctx) => {
 	const validData = await validator.update(ctx.request.body, ctx.params);
-	const result = await action.updateBook(validData);
-	ctx.body = { message: 'Book updated', result };
+	await action.updateBook(validData);
+	ctx.body = { message: 'Book updated' };
 });
 
 module.exports = router;
